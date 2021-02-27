@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+ 
+FILE *in = fopen("yinyang.in", "r"), *out = fopen("yinyang.out", "w") ;
+ 
+int n, m ;
+ 
+int mat[105][105], ans ;
+ 
+int main() {
+  fscanf(in, "%d %d", &n, &m) ;
+  int i, j ;
+  for (i = 1 ; i <= n ; ++ i) {
+    for (j = 1 ; j <= m ; ++ j) {
+      fscanf(in, "%d", &mat[i][j]) ;
+    }
+  }
+  int k, lini, linj ;
+  for (i = 1 ; i < n ; ++ i) {
+    for (j = i + 1 ; j <= n ; ++ j) {
+      lini = linj = 0 ;
+      for (k = 1 ; k <= m ; ++ k) {
+        if (mat[i][k] > mat[j][k])
+          lini ++ ;
+        else if (mat[i][k] < mat[j][k])
+          linj ++ ;
+        if (lini && linj) {
+          return fprintf(out, "-1"), 0 ;
+        }
+      }
+      if (lini > linj)
+        ++ ans ;
+    }
+  }
+  for (i = 1 ; i < m ; ++ i) {
+    for (j = i + 1 ; j <= m ; ++ j) {
+      lini = linj = 0 ;
+      for (k = 1 ; k <= n ; ++ k) {
+        if (mat[k][i] > mat[k][j])
+          lini ++ ;
+        else if (mat[k][i] < mat[k][j])
+          linj ++ ;
+        if (lini && linj) {
+          return fprintf(out, "-1"), 0 ;
+        }
+      }
+      if (lini > linj)
+        ++ ans ;
+    }
+  }
+  fprintf(out, "%d", ans) ;
+}
