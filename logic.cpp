@@ -12,7 +12,7 @@ std::fstream in ("logic.in", std::ios::in | std::ios::binary) ;
 std::fstream out ("logic.out", std::ios::out) ;
 
 
-// more about this class here https://github.com/Euraba
+// more about this class here https://github.com/Euraba/BooleanExpression
 class BooleanExpresion {
 private :
     static const int SIGMA = 26 ;
