@@ -1,47 +1,47 @@
 #include <iostream>
 #include <map>
+#include <set>
 
-std::map<int, bool> mp ;
-
-auto greatest_less(int k) {
-    std::map<int, bool>::iterator it = mp.lower_bound(k);
-    if(it != mp.end()) {
-        return it;
-    }
-    return mp.end();
-}
+#pragma optimize ("O3")
 
 int sol[300000] ;
 int er[300000] ;
 
 int main() {
-    int n, m ;
+    std::ios::sync_with_stdio(false) ;
+    std::cin.tie(NULL) ;
+    std::cout.tie(NULL) ;
+    int n, m, i, j ;
     std::cin >> n >> m ;
     int l, r, x ;
-    for (int i = 1 ; i <= n ; ++ i) {
-        mp[i] = 1 ;
+    std::set<int> mp ;
+    for (i = 1 ; i <= n ; ++ i) {
+        mp.insert(i) ;
     }
-    for (int i = 1 ; i <= m ; ++ i) {
+    std::set<int> :: iterator it ;
+    for (i = 1 ; i <= m ; ++ i) {
         std::cin >> l >> r >> x ;
-        auto it = greatest_less(l) ;
+        it = mp.lower_bound(l) ;
         er[0] = 0 ;
+        int c ;
         while (it != mp.end()) {
-            if (it->first > r) {
+            c = *it ;
+            if (c > r) {
                 break;
             }
-            if (it->first >= l && it->first <= r) {
-                if (it->first != x) {
-                    sol[it->first] = x ;
-                    er[++ er[0]] = it ->first ;
+            if (c >= l) {
+                if (c != x) {
+                    sol[c] = x ;
+                    er[++ er[0]] = c ;
                 }
             }
             ++ it ;
         }
-        for (int j = 1 ; j <= er[0] ; ++ j) {
-            mp.erase(mp.find(er[j])) ;
+        for (j = 1 ; j <= er[0] ; ++ j) {
+            mp.erase(er[j]) ;
         }
     }
-    for (int i = 1 ; i <= n ; ++ i) {
+    for (i = 1 ; i <= n ; ++ i) {
         std::cout << sol[i] << ' ' ;
     }
 }
